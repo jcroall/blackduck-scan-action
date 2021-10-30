@@ -1,0 +1,31 @@
+name: "Black Duck Scan"
+description: "Black Duck Scanning for GitHub CI/CD Workflows"
+author: "James Croall"
+branding:
+  icon: "alert-triangle"
+  color: "yellow"
+inputs:
+  url:
+    description: "Black Duck URL"
+  token:
+    description: "Black Duck API Token"
+  mode:
+    description: "Scanning mode, intelligent or rapid"
+    default: "intelligent"
+  file:
+    description: "Location of the related file in the repository"
+  output:
+    description: "Directory in which to save the rapid scan output"
+    default: "blackduck-output"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+  - --url
+  - ${{ inputs.url }}
+  - --token
+  - ${{ inputs.token }}
+  - --mode
+  - ${{ inputs.mode }}
+  - --output
+  - ${{ inputs.output }}
