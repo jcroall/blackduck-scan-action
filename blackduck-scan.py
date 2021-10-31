@@ -6,7 +6,7 @@ import sys
 import os
 import subprocess
 
-detect_cmd = "detect.sh"
+detect_cmd = "/detect.sh"
 
 if __name__ == "__main__":
 
