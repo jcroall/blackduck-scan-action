@@ -1,5 +1,5 @@
 FROM openjdk:slim
-COPY --from=python:slim
+COPY --from=python:slim / /
 #FROM python:slim
 
 ADD blackduck-scan.py /blackduck-scan.py
