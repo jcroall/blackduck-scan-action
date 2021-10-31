@@ -31,7 +31,7 @@ if __name__ == "__main__":
         sys.exit(1)
     output = args.output
 
-    detect_opts = f"--blackduck.url=\"{url}\" --blackduck.api.token=\"{token}\" --detect.blackduck.scan.mode={mode} --detect.output.path={output}"
+    detect_opts = f"--blackduck.url=\"{url}\" --blackduck.api.token=\"{token}\" --detect.blackduck.scan.mode={mode} --detect.output.path={output} --detect.cleanup=false"
 
     if (project != None):
         detect_opts = detect_opts + f" --detect.project.name {project}"
@@ -44,7 +44,5 @@ if __name__ == "__main__":
     return_code = result.returncode
 
     print(f"INFO: Done, return value {return_code}")
-
-    os.system("find . -print")
 
     sys.exit(return_code)
