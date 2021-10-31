@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
     print(f"INFO: Running Black Duck detect with the following options: {detect_opts}")
 
-    result = subprocess.Popen(f"/bin/sh {detect_cmd} {detect_opts}", shell=True)
+    result = subprocess.Popen(f"/bin/bash {detect_cmd} {detect_opts}", shell=True)
     detect_output = result.communicate()[0]
     return_code = result.returncode
 
