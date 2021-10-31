@@ -1,4 +1,6 @@
-FROM python:slim
+FROM openjdk:slim
+COPY --from=python:slim
+#FROM python:slim
 
 ADD blackduck-scan.py /blackduck-scan.py
 #RUN apt-get update && apt-get install -y --no-install-recommends wget
