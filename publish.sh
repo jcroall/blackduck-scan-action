@@ -1,3 +1,3 @@
 #!/bin/sh
-git tag -f master
+git tag -f v1
 git push origin --tags -f

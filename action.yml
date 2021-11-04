@@ -9,6 +9,8 @@ inputs:
     description: "Black Duck URL"
   token:
     description: "Black Duck API Token"
+  project:
+    description: "Project name in the Black Duck server"
   mode:
     description: "Scanning mode, intelligent or rapid"
     default: "intelligent"
@@ -28,4 +30,6 @@ runs:
   - --mode
   - ${{ inputs.mode }}
   - --output
+  - ${{ inputs.output }}
+  - --project
   - ${{ inputs.output }}
