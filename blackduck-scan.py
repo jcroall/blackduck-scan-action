@@ -37,7 +37,6 @@ if __name__ == "__main__":
         detect_opts = detect_opts + f" --detect.project.name {project}"
 
     print(f"INFO: Running Black Duck detect with the following options: {detect_opts}")
-    ENTRYPOINT ["java", "-jar", "/synopsys-detect.jar", "--detect.source.path=/source", "--detect.output.path=/output", "--detect.phone.home.passthrough.invoked.by.image=true", "--detect.detector.buildless=true"]
 
     print(f"EXEC: {detect_cmd} {detect_opts}")
 
