@@ -9,4 +9,4 @@ ADD blackduck-scan.py /blackduck-scan.py
 
 WORKDIR /app
 
-ENTRYPOINT ["/blackduck-scan.py"]
+ENTRYPOINT python3 /blackduck-scan.py
