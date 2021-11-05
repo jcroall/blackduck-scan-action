@@ -6,7 +6,7 @@ import sys
 import os
 import subprocess
 
-detect_cmd = "/detect.sh"
+detect_cmd = "java -jar /synopsys-detect.jar"
 
 if __name__ == "__main__":
 
@@ -37,9 +37,11 @@ if __name__ == "__main__":
         detect_opts = detect_opts + f" --detect.project.name {project}"
 
     print(f"INFO: Running Black Duck detect with the following options: {detect_opts}")
-    print(f"EXEC: /bin/bash {detect_cmd} {detect_opts}")
+    ENTRYPOINT ["java", "-jar", "/synopsys-detect.jar", "--detect.source.path=/source", "--detect.output.path=/output", "--detect.phone.home.passthrough.invoked.by.image=true", "--detect.detector.buildless=true"]
 
-    result = subprocess.Popen(f"/bin/bash {detect_cmd} {detect_opts}", shell=True)
+    print(f"EXEC: {detect_cmd} {detect_opts}")
+
+    result = subprocess.Popen(f"{detect_cmd} {detect_opts}", shell=True)
     detect_output = result.communicate()[0]
     return_code = result.returncode
 
