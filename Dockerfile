@@ -3,7 +3,7 @@ FROM blackducksoftware/detect:7-buildless
 ENV PYTHONUNBUFFERED=1
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
-RUN pip install --upgrade pip && pip install PyGithub networkx blackduck
+RUN pip3 install --upgrade pip3 && pip3 install PyGithub networkx blackduck
 
 ADD blackduck-scan.py /blackduck-scan.py
 ADD blackduck-rapid-scan-to-sarif-bdio.py /blackduck-rapid-scan-to-sarif-bdio.py
