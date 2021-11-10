@@ -1,16 +1,14 @@
-FROM openjdk:slim
-COPY --from=python:slim / /
-#FROM python:slim
+FROM blackducksoftware/detect:7-buildless
+
+ENV PYTHONUNBUFFERED=1
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip install --upgrade pip && pip install PyGithub networkx blackduck
 
 ADD blackduck-scan.py /blackduck-scan.py
-#RUN apt-get update && apt-get install -y --no-install-recommends wget
-#RUN wget -O detect.sh https://detect.synopsys.com/detect7.sh
-RUN apt-get update && apt-get install -y --no-install-recommends curl
-RUN curl -s -L https://detect.synopsys.com/detect7.sh -o /detect.sh
-
-RUN pip install --upgrade pip
-#RUN pip install PyGithub
+ADD blackduck-rapid-scan-to-sarif-bdio.py /blackduck-rapid-scan-to-sarif-bdio.py
 
 WORKDIR /app
 
 ENTRYPOINT ["/blackduck-scan.py"]
+CMD ["--help"]
