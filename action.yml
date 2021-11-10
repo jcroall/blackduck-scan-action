@@ -19,7 +19,7 @@ inputs:
   output:
     description: "Directory in which to save the rapid scan output"
     default: "blackduck-output"
-  fixpr:
+  fix_pr:
     description: "Generate a Fix PR for each insecure component"
     default: "false"
   upgrade_major:
