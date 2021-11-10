@@ -47,7 +47,7 @@ runs:
   - --output
   - ${{ inputs.output }}
   - --project
-  - ${{ inputs.output }}
+  - ${{ inputs.project }}
   - --fix_pr
   - ${{ inputs.fix_pr }}
   - --upgrade_major
