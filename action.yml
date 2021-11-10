@@ -19,6 +19,21 @@ inputs:
   output:
     description: "Directory in which to save the rapid scan output"
     default: "blackduck-output"
+  fixpr:
+    description: "Generate a Fix PR for each insecure component"
+    default: "false"
+  upgrade_major:
+    description: "Recommend upgrade guidance to major, not just minor, versions"
+    default: "false"
+  comment_on_pr:
+    description: "Comment on a pull request"
+    default: "false"
+  sarif:
+    description: "Output file for SARIF"
+    default: "blackduck-sarif.json"
+  incremental_results:
+    description: "Incremental analysis"
+    default: "false"
 runs:
   using: "docker"
   image: "Dockerfile"
@@ -33,3 +48,13 @@ runs:
   - ${{ inputs.output }}
   - --project
   - ${{ inputs.output }}
+  - --fix_pr
+  - ${{ inputs.fix_pr }}
+  - --upgrade_major
+  - ${{ inputs.upgrade_major }}
+  - --comment_on_pr
+  - ${{ inputs.comment_on_pr }}
+  - --sarif
+  - ${{ inputs.sarif }}
+  - --incremental
+  - ${{ inputs.incremental_results }}
