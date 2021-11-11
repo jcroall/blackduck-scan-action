@@ -5,6 +5,9 @@ branding:
   icon: "alert-triangle"
   color: "yellow"
 inputs:
+  debug:
+    description: "Debugging"
+    default: "0"
   url:
     description: "Black Duck URL"
   token:
@@ -38,6 +41,8 @@ runs:
   using: "docker"
   image: "Dockerfile"
   args:
+  - --debug
+  - ${{ inputs.debug }}
   - --url
   - ${{ inputs.url }}
   - --token
@@ -56,5 +61,5 @@ runs:
   - ${{ inputs.comment_on_pr }}
   - --sarif
   - ${{ inputs.sarif }}
-  - --incremental
+  - --incremental_results
   - ${{ inputs.incremental_results }}
