@@ -601,7 +601,7 @@ for item in dev_scan_data['items']:
         tool_rule['defaultConfiguration'] = defaultConfiguration
         properties = dict()
         properties['tags'] = ["security"]
-        properties['security-severity'] = vuln['overallScore']
+        properties['security-severity'] = str(vuln['overallScore'])
         tool_rule['properties'] = properties
         tool_rules.append(tool_rule)
 
