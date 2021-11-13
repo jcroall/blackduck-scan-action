@@ -284,7 +284,10 @@ if (not allcomps):
         # Can't cache the component Id / external id very easily here as it's not top-level,
         # and may have multiple origins
         for comp in baseline_comps:
-            baseline_comp_cache[comp['componentName']] = comp['componentVersionName']
+            if (not comp['componentName'] in baseline_comp_cache): baseline_comp_cache[comp['componentName']] = dict()
+            #if (baseline_comp_cache[comp['componentName']] == None): baseline_comp_cache[comp['componentName']] = dict()
+            baseline_comp_cache[comp['componentName']][comp['componentName']] = 1
+            #baseline_comp_cache[comp['componentName']] = comp['componentVersionName']
         if (globals.debug): print(f"DEBUG: Baseline component cache=" + json.dumps(baseline_comp_cache, indent=4))
         if (globals.debug): print(f"DEBUG: Generated baseline component cache")
 
@@ -383,11 +386,13 @@ for item in dev_scan_data['items']:
 
         # If comparing to baseline, look up in cache and continue if already exists
         if (not allcomps and item['componentName'] in baseline_comp_cache):
-            if (item['versionName'] == baseline_comp_cache[item['componentName']]):
+            #if (item['versionName'] == baseline_comp_cache[item['componentName']]):
+            if (item['versionName'] in baseline_comp_cache[item['componentName']] and baseline_comp_cache[item['componentName']][item['versionName']] == 1):
+            #if (baseline_comp_cache[item['componentName']][item['versionName']] == 1):
                 if (globals.debug): print(f"DEBUG:   Skipping component {item['componentName']} version {item['versionName']} because it was already seen in baseline")
                 continue
             else:
-                if (globals.debug): print(f"DEBUG:   Including component {item['componentName']} version {item['versionName']} because it was already seen in baseline")
+                if (globals.debug): print(f"DEBUG:   Including component {item['componentName']} version {item['versionName']} because it was not seen in baseline")
 
     # Is this a direct dependency?
     dependency_type = "Direct"
