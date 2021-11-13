@@ -91,4 +91,7 @@ if __name__ == "__main__":
     print(f"INFO: Running Black Duck advanced workflow with the following options: {runargs}")
     workflow_return_code = WorkflowUtils.run_workflow(globals.workflow_script, runargs)
 
+    if (workflow_return_code != 0):
+        print(f"ERROR: Black Duck advanced workflow returned exit code {workflow_return_code}")
+
     sys.exit(workflow_return_code)
