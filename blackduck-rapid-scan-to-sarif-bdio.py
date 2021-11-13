@@ -696,6 +696,8 @@ if (fix_pr and len(fix_pr_data.values()) > 0):
         elif (fix_pr_node['scheme'] == "maven"):
             files_to_patch = MavenUtils.upgrade_maven_dependency(fix_pr_node['filename'], fix_pr_node['componentName'], fix_pr_node['versionFrom'], fix_pr_node['versionTo'])
             if (globals.debug): print(f"DEBUG: Files to patch are: {files_to_patch}")
+            github_commit_file_and_create_fixpr(g, github_token, github_api_url, github_repo, github_branch,
+                                                files_to_patch, fix_pr_node)
         else:
             print(f"INFO: Generating a Fix PR for packages of type '{fix_pr_node['scheme']}' is not supported yet")
 
