@@ -518,7 +518,7 @@ for item in dev_scan_data['items']:
         fix_pr_node['scheme'] = ptype
         fix_pr_node['filename'] = remove_cwd_from_filename(package_file)
         fix_pr_node['comments'] = []
-        fix_pr_node['comments_markdown'] = ["| Severity | Policy | Description | Vulnerable version | Upgrade to |", "| --- | --- | --- | --- | --- |"]
+        fix_pr_node['comments_markdown'] = ["| Severity | Description | Vulnerable version | Upgrade to |", "| --- | --- | --- | --- | --- |"]
         fix_pr_node['comments_markdown_footer'] = ""
 
     # Loop through polciy violations and append to SARIF output data
