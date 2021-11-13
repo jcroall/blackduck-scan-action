@@ -772,7 +772,7 @@ if (len(comment_on_pr_comments) > 0):
     if (globals.debug): print(repo)
 
     status = repo.get_commit(sha=github_sha).create_status(
-        state="failure",
+        state="error",
         target_url="https://FooCI.com",
         description="Black Duck security scan found vulnerabilities",
         context="Synopsys Black Duck"
