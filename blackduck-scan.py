@@ -56,6 +56,7 @@ if __name__ == "__main__":
     runargs = []
     runargs.extend(["--blackduck.url="+url, "--blackduck.api.token="+token, "--detect.blackduck.scan.mode="+mode,
                     "--detect.policy.check.fail.on.severities=NONE",
+                    "--detect.detector.buildless=true",
                     "--detect.output.path="+output, "--detect.cleanup="+"false"])
 
     if (project != None):
