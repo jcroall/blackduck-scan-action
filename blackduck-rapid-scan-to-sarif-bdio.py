@@ -518,7 +518,7 @@ for item in dev_scan_data['items']:
         fix_pr_node['scheme'] = ptype
         fix_pr_node['filename'] = remove_cwd_from_filename(package_file)
         fix_pr_node['comments'] = []
-        fix_pr_node['comments_markdown'] = ["| ID | Severity | Policy | Description | Vulnerable version | Upgrade to |", "| --- | --- | --- | --- | --- | --- |"]
+        fix_pr_node['comments_markdown'] = ["| ID | Severity | Description | Vulnerable version | Upgrade to |", "| --- | --- | --- | --- | --- |"]
         fix_pr_node['comments_markdown_footer'] = ""
 
     # Loop through polciy violations and append to SARIF output data
@@ -532,11 +532,11 @@ for item in dev_scan_data['items']:
     for vuln in item['policyViolationVulnerabilities']:
         if (upgrade_version != None):
             message = f"* {vuln['name']} - {vuln['vulnSeverity']} severity vulnerability violates policy '{vuln['violatingPolicies'][0]['policyName']}': *{vuln['description']}* Recommended to upgrade to version {upgrade_version}. {dependency_type} dependency."
-            message_markdown = f"| {vuln['name']} | {vuln['description']} | {current_version} | {upgrade_version} | "
+            message_markdown = f"| {vuln['name']} | {vuln['vulnSeverity']} | {vuln['description']} | {current_version} | {upgrade_version} | "
             comment_on_pr = f"| {name} | {dependency_type} | {vuln['name']} |  {vuln['vulnSeverity']} | {vuln['violatingPolicies'][0]['policyName']} | {vuln['description']} | {current_version} | {upgrade_version} |"
         else:
             message = f"* {vuln['name']} - {vuln['vulnSeverity']} severity vulnerability violates policy '{vuln['violatingPolicies'][0]['policyName']}': *{vuln['description']}* No upgrade available at this time. {dependency_type} dependency."
-            message_markdown = f"| {vuln['name']} | {vuln['description']} | {current_version} | {upgrade_version} | "
+            message_markdown = f"| {vuln['name']} | {vuln['vulnSeverity']} | {vuln['description']} | {current_version} | {upgrade_version} | "
             comment_on_pr = f"| {name} | {dependency_type} | {vuln['name']} | {vuln['vulnSeverity']} | {vuln['violatingPolicies'][0]['policyName']} | {vuln['description']} | {current_version} | N/A |"
 
         if (dependency_type == "Direct"):
