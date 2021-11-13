@@ -286,7 +286,7 @@ if (not allcomps):
         for comp in baseline_comps:
             if (not comp['componentName'] in baseline_comp_cache): baseline_comp_cache[comp['componentName']] = dict()
             #if (baseline_comp_cache[comp['componentName']] == None): baseline_comp_cache[comp['componentName']] = dict()
-            baseline_comp_cache[comp['componentName']][comp['componentName']] = 1
+            baseline_comp_cache[comp['componentName']][comp['componentVersionName']] = 1
             #baseline_comp_cache[comp['componentName']] = comp['componentVersionName']
         if (globals.debug): print(f"DEBUG: Baseline component cache=" + json.dumps(baseline_comp_cache, indent=4))
         if (globals.debug): print(f"DEBUG: Generated baseline component cache")
