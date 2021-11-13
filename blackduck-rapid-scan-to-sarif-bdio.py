@@ -108,6 +108,22 @@ def detect_package_file(package_files, component_identifier, component_name):
 
     return "Unknown", 1
 
+def get_pull_requests(g, github_repo):
+    if (globals.debug): print(f"DEBUG: Index pull requests, Look up GitHub repo '{github_repo}'")
+    repo = g.get_repo(github_repo)
+    if (globals.debug): print(repo)
+
+    pull_requests = []
+
+    # TODO Should this handle other bases than master?
+    pulls = repo.get_pulls(state='open', sort='created', base='master', direction="desc")
+    for pull in pulls:
+        if (globals.debug): print(f"DEBUG: Pull request number: {pull.number}: {pull.title}")
+        pull_requests.append(pull.title)
+
+    return pull_requests
+
+
 def generate_fix_pr_npmjs(filename, filename_local, component_name, version_from, version_to):
     try:
         with open(filename) as jsonfile:
@@ -656,10 +672,17 @@ if (fix_pr and len(fix_pr_data.values()) > 0):
     if (globals.debug): print(f"DEBUG: Connect to GitHub at {github_api_url}")
     g = Github(github_token, base_url=github_api_url)
 
-    print("DEBUG: Generating Fix Pull Request")
+    print("DEBUG: Generating Fix Pull Requests")
+
+    pulls = get_pull_requests(g, github_repo)
 
     for fix_pr_node in fix_pr_data.values():
-        if (globals.debug): print(f"DEBUG:  Fix '{fix_pr_node['componentName']}' version '{fix_pr_node['versionFrom']}' in file '{fix_pr_node['filename']}' using scheme '{fix_pr_node['scheme']}' to version '{fix_pr_node['versionTo']}'")
+        if (globals.debug): print(f"DEBUG: Fix '{fix_pr_node['componentName']}' version '{fix_pr_node['versionFrom']}' in file '{fix_pr_node['filename']}' using scheme '{fix_pr_node['scheme']}' to version '{fix_pr_node['versionTo']}'")
+
+        pull_request_title = f"Black Duck: Upgrade {fix_pr_node['componentName']} to version {fix_pr_node['versionTo']} fix known security vulerabilities"
+        if pull_request_title in pulls:
+            if (globals.debug): print(f"DEBUG: Skipping pull request for {fix_pr_node['componentName']}' version '{fix_pr_node['versionFrom']} as it is already present")
+            continue
 
         if (fix_pr_node['scheme'] == "npmjs"):
             files_to_patch = NpmUtils.upgrade_npm_dependency(fix_pr_node['filename'], fix_pr_node['componentName'], fix_pr_node['versionFrom'], fix_pr_node['versionTo'])
