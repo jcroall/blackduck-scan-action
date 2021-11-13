@@ -755,7 +755,9 @@ if (comment_pr and len(comment_on_pr_comments) > 0):
 
 if (len(comment_on_pr_comments) == 0):
     print(f"INFO: No new components found, nothing to report")
-
+else:
+    print(f"INFO: Vulnerable components found, returning exit code 1")
+    sys.exit(1)
 
 #
 #Synopsys Black Duck found the following vulnerabilities in the component {fix_pr_node['componentName']}:
